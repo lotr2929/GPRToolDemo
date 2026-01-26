@@ -1,0 +1,58 @@
+
+<!-- header.html -->
+<div id="gpr-header">
+  <div class="header-inner">
+    
+    <!-- Left spacer -->
+    <div class="header-left"></div>
+
+    <!-- Center: logo + title -->
+    <div class="header-center">
+      <img src="images/gpr-logo.png" alt="GPR Logo" class="header-logo">
+      <span class="header-title">GPRTool Demo</span>
+    </div>
+
+    <!-- Right: datetime -->
+    <div class="header-right" id="header-datetime"></div>
+
+  </div>
+</div>
+
+<style>
+  /* Header container */
+  #gpr-header {
+    width: 100%;
+    background: var(--hdr-bgcolor);   /* was: #b4e4b4 */
+    padding: 10px 10px;
+    box-sizing: border-box;
+  }
+
+  .header-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* center stays centered */
+    align-items: center;
+  }
+
+  /* Center: logo + big title */
+  .header-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 50px;
+    font-weight: 600;
+    color: var(--hdr-fgcolor);       /* was: #1a531b */
+  }
+
+  .header-logo {
+    height: 70px;
+  }
+
+  /* Right-side datetime */
+  .header-right {
+    justify-self: end;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--txt-color);         /* was: #333 */
+  }
+</style>

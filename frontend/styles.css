@@ -1,0 +1,220 @@
+
+
+/* =========================
+   TOKENS — colour variables
+   ========================= */
+:root {
+
+  /* -----------------------------------------
+     HEADER BACKGROUND
+     Used in: #gpr-header (header.html)
+     Controls: Entire header strip background
+     ----------------------------------------- */
+  --hdr-bgcolor: #bcd7ae;
+
+  /* -----------------------------------------
+     HEADER TEXT / LOGO COLOUR
+     Used in: .header-center (header.html)
+     Controls: “GPRTool Demo” title + logo tinting
+     ----------------------------------------- */
+  --hdr-fgcolor: #1a531b;
+
+  /* -----------------------------------------
+     PAGE BACKGROUND
+     Used in: html, body
+     Controls: Whole page background behind layout
+     ----------------------------------------- */
+  --bg-color: #868278;
+
+  /* -----------------------------------------
+     VIEWPORT BACKGROUND (3D CANVAS)
+     Used in:
+       • .viewport (CSS fallback)
+       • Three.js renderer.setClearColor()
+     Controls: WebGL background colour behind 3D model
+     ----------------------------------------- */
+  --vp-bgcolor: #ededee;
+
+  /* -----------------------------------------
+     DEFAULT TEXT COLOUR
+     Used in:
+       • header-right (datetime)
+       • global body text
+       • control panel text + labels
+     Controls: Normal text across entire UI
+     ----------------------------------------- */
+  --txt-color: #222222;
+
+  /* -----------------------------------------
+     BORDER / OUTLINES
+     Used in:
+       • control panel border
+       • button borders
+     Controls: Subtle borders in the UI
+     ----------------------------------------- */
+  --bdr-color: rgba(0,0,0,.12);
+
+  /* -----------------------------------------
+     ACCENT COLOUR
+     Used in: highlight elements (future use)
+     Defaults to header foreground colour
+     ----------------------------------------- */
+  --acc-color: var(--hdr-fgcolor);
+
+  /* -----------------------------------------
+     CONTROL PANEL BASE BACKGROUND
+     Used in:
+       • .control-panel sidebar
+     Controls: Left control panel background colour
+     ----------------------------------------- */
+  --panel-bgcolor: #EEE8D5;
+
+  /* -----------------------------------------
+     CONTROL PANEL SECONDARY SURFACE
+     Used in:
+       • input/button backgrounds
+     Controls: Light surface for panel elements
+     ----------------------------------------- */
+  --panel-bgcolor-alt: #f2f2f2;
+}
+
+/* =========================
+   DARK THEME OVERRIDES
+   ========================= */
+:root[data-theme="dark"] {
+
+  /* Page background in dark mode */
+  --bg-color: #0f1115;
+
+  /* WebGL background in dark mode */
+  --vp-bgcolor: #000814;
+
+  /* Header background in dark mode */
+  --hdr-bgcolor: #123524;
+
+  /* Header text/logo in dark mode */
+  --hdr-fgcolor: #d5f6d5;
+
+  /* Default text in dark mode */
+  --txt-color: #e7e7e7;
+
+  /* Border colour in dark mode */
+  --bdr-color: rgba(255,255,255,.15);
+
+  /* Control panel background in dark theme */
+  --panel-bgcolor: #171a21;
+
+  /* Control panel element background in dark theme */
+  --panel-bgcolor-alt: #1f2430;
+
+  /* Accent colour in dark mode */
+  --acc-color: #8be28f;
+}
+
+/* ===== Global Layout ===== */
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, Segoe UI, Arial, sans-serif;
+  background: var(--bg-color);
+  color: var(--txt-color);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header + Body Structure */
+#header-container {
+  flex: 0 0 auto;
+  width: 100%;
+  background: var(--hdr-bgcolor);
+  color: var(--hdr-fgcolor);
+}
+
+#body-container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: row;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.scene-layout {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  min-height: 0;
+}
+
+/* ===== Control Panel ===== */
+.control-panel {
+  width: 175px;
+  background: var(--panel-bgcolor);
+  border: 1px solid var(--panel-bgcolor-alt);
+  border-radius: 0;
+  padding: 5px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.control-row label {
+  margin-right: 6px;
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.control-row input[type="number"] {
+  width: 80px;
+  padding: 3px;
+  background: #ffffff;
+  border: 0px solid #000;
+  border-radius: 0;
+  box-sizing: border-box;
+  font-size: 12px;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.control-buttons button {
+  flex: 1;
+  padding: 6px 4px;
+  background: var(--panel-bgcolor-alt);
+  border: .5px solid var(--bdr-color);
+  border-radius: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.control-buttons button:hover {
+  background: #dcdcdc;
+}
+
+/* ===== 3D Viewport ===== */
+.viewport {
+  background-color: var(--vp-bgcolor);
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+#three-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
