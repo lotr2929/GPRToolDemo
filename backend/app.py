@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Query
 from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pathlib import Path
 
 from geometry import make_box
@@ -9,6 +10,14 @@ app = FastAPI(title="GPRTool Demo API")
 
 DATA = Path(__file__).resolve().parent / "data"
 DATA.mkdir(exist_ok=True)
+
+# --- NEW: point FastAPI to your repo's /frontend folder ---
+BACKEND_DIR = Path(__file__).resolve().parent          # .../backend
+FRONTEND_DIR = BACKEND_DIR.parent / "frontend"         # .../frontend
+
+# Serve all frontend assets (js/images/textures/styles.css/etc.)
+# This makes URLs like /js/app.js or /images/logo.png work.
+app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")
 
 @app.get("/api/health")
 def health():
