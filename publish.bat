@@ -33,6 +33,19 @@ echo.
 echo Committing changes...
 git commit -m "%commit_msg%"
 
+REM Pull latest changes from GitHub first
+echo.
+echo Pulling latest changes from GitHub...
+git pull origin main --rebase
+
+if %errorlevel% neq 0 (
+    echo.
+    echo ERROR: Failed to pull changes. There might be conflicts.
+    echo Please resolve conflicts manually and try again.
+    pause
+    exit /b 1
+)
+
 REM Push to GitHub
 echo.
 echo Pushing to GitHub...
