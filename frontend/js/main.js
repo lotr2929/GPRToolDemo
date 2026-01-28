@@ -185,8 +185,8 @@ recenterBtn?.addEventListener("click", () => {
 const clock = new THREE.Clock();
 function animate() {
   const t = clock.getElapsedTime();
-  cube.rotation.x = t * 0.6;
-  cube.rotation.y = t * 0.8;
+  //cube.rotation.x = t * 0.6;
+  //cube.rotation.y = t * 0.8;
 
   controls.update();
   renderer.render(scene, camera);
