@@ -16,37 +16,51 @@
   }
   </script>
 
-  <style>
-    /* ==== Layout only (no colours here) ==== */
-    html, body { height: 100%; margin: 0; }
+ <style>
+  /* ==== Layout only (no colours here) ==== */
+  html, body { height: 100%; margin: 0; }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      font-family: system-ui, Segoe UI, Arial, sans-serif;
-    }
+  body {
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, Segoe UI, Arial, sans-serif;
+  }
 
-    #header-container { flex: 0 0 auto; width: 100%; }
+  #header-container { flex: 0 0 auto; width: 100%; }
 
-    #body-container {
-      flex: 1 1 auto;
-      min-height: 0;
-      width: 100%;
-      overflow: hidden;
-      height: 100%;
-      position: relative;
-    }
+  #body-container {
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
 
-    /* Ensure viewport consumes full remaining height */
-    .page-wrap { height: 100%; }
-    .scene-layout { height: 100%; min-height: 0; }
-    .viewport { height: 100% !important; min-height: 0 !important; }
+  /* Ensure main container and viewport fill space */
+  #main-container { 
+    flex: 1;
+    display: flex;
+    min-height: 0;
+    overflow: hidden;
+  }
 
-    #three-canvas {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
+  #viewport { 
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  
+  #feedback-bar {
+    flex-shrink: 0;
+  }
+
+  #three-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
   </style>
 </head>
 
@@ -71,40 +85,22 @@
 
     function updateHeaderTime() {
       const el = document.getElementById('header-datetime');
-      if (el) el.textContent = new Date().toLocaleString();
+      if (el) {
+        const now = new Date();
+        const day = now.getDate();
+        const month = now.toLocaleDateString('en-GB', { month: 'short' });
+        const year = now.getFullYear();
+            const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+        el.textContent = `${day} ${month} ${year}  ${hours}:${minutes}:${seconds}`;
+      }
     }
     updateHeaderTime();
     setInterval(updateHeaderTime, 1000);
 
     const bodyHTML = await fetch('body.html').then(r => r.text());
     document.getElementById('body-container').innerHTML = bodyHTML;
-
-
-    /* ========================
-       1.5) Auto-fit viewport height
-       ======================== */
-    (function ensureViewportHeightFits() {
-      const bodyContainer = document.getElementById('body-container');
-      const layout = document.querySelector('.scene-layout');
-      const viewport = document.querySelector('.viewport');
-      if (!bodyContainer || !layout || !viewport) return;
-
-      function applyHeight() {
-        const cs = getComputedStyle(layout);
-        const vPad = (parseFloat(cs.paddingTop) || 0) +
-                     (parseFloat(cs.paddingBottom) || 0);
-        const h = Math.max(320, bodyContainer.clientHeight - vPad);
-        viewport.style.height = h + 'px';
-        viewport.style.minHeight = '0px';
-      }
-
-      const ro = new ResizeObserver(applyHeight);
-      ro.observe(bodyContainer);
-      ro.observe(layout);
-      addEventListener('resize', applyHeight, { passive: true });
-      applyHeight();
-    })();
-
 
     /* ========================
        2) DOM hooks
@@ -331,6 +327,52 @@
       renderer.render(scene, camera);
       requestAnimationFrame(animate);
     })();
+/* ========================
+   Panel collapse functionality
+   ======================== */
+document.querySelectorAll('.collapse-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const panelId = this.dataset.panel;
+    const panel = document.getElementById(`${panelId}-panel`);
+    panel.classList.toggle('collapsed');
+    
+    // Update button text
+    if (panel.classList.contains('collapsed')) {
+      this.textContent = panelId === 'left' ? '►' : '◄';
+    } else {
+      this.textContent = panelId === 'left' ? '◄' : '►';
+    }
+  });
+});
+
+/* Feedback system */
+function showFeedback(message, duration = 3000) {
+  const feedbackEl = document.getElementById('status-message');
+  if (feedbackEl) {
+    feedbackEl.textContent = message;
+    
+    if (duration > 0) {
+      setTimeout(() => {
+        feedbackEl.textContent = 'Ready';
+      }, duration);
+    }
+  }
+}
+
+/* Command button handlers */
+document.querySelectorAll('.command-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const action = this.dataset.action;
+    if (action) {
+      showFeedback(`Action: ${action}`);
+      // Add your action handlers here
+      console.log('Command:', action);
+    }
+  });
+});
+
+// Show ready message
+showFeedback('GPRTool Demo ready');
   </script>
 
 </body>

@@ -1,31 +1,84 @@
-<div class="scene-layout">
-
-  <div class="control-panel">
-
-    <div class="control-row">
-      <label>Width (X):</label>
-      <input type="number" id="widthX" value="1" step="0.1" />
+<!-- Main Content Area -->
+<div id="main-container">
+  <!-- Left Panel: Commands -->
+  <aside id="left-panel" class="side-panel">
+    <div class="panel-header">
+      <h3>Commands</h3>
+      <button class="collapse-btn" data-panel="left">◄</button>
     </div>
-
-    <div class="control-row">
-      <label>Height (Y):</label>
-      <input type="number" id="heightY" value="1" step="0.1" />
+    <div class="panel-content">
+      <div class="command-section">
+        <h4>Geometry</h4>
+        <button class="command-btn" data-action="create-box">Create Box</button>
+        <button class="command-btn" data-action="create-cylinder">Create Cylinder</button>
+        <button class="command-btn" data-action="create-sphere">Create Sphere</button>
+      </div>
+      <div class="command-section">
+        <h4>Modify</h4>
+        <button class="command-btn" data-action="scale">Scale</button>
+        <button class="command-btn" data-action="rotate">Rotate</button>
+        <button class="command-btn" data-action="translate">Translate</button>
+      </div>
+      <div class="command-section">
+        <h4>View</h4>
+        <button class="command-btn" data-action="reset-camera">Reset Camera</button>
+        <button class="command-btn" data-action="fit-view">Fit to View</button>
+      </div>
     </div>
+  </aside>
 
-    <div class="control-row">
-      <label>Depth (Z):</label>
-      <input type="number" id="depthZ" value="1" step="0.1" />
-    </div>
-
-    <div class="control-buttons">
-      <button id="resetBtn">Reset</button>
-      <button id="recenterBtn">Center</button>
-    </div>
-
-  </div>
-
-  <div class="viewport">
+  <!-- Center: Viewport -->
+  <main id="viewport" class="viewport">
     <canvas id="three-canvas"></canvas>
-  </div>
+  </main>
 
+  <!-- Right Panel: Properties -->
+  <aside id="right-panel" class="side-panel">
+    <div class="panel-header">
+      <button class="collapse-btn" data-panel="right">►</button>
+      <h3>Properties</h3>
+    </div>
+    <div class="panel-content">
+      <div class="property-section">
+        <h4>Dimensions</h4>
+        <label>
+          Width (X):
+          <input type="number" id="widthX" value="1" step="0.1" min="0.1">
+        </label>
+        <label>
+          Height (Y):
+          <input type="number" id="heightY" value="1" step="0.1" min="0.1">
+        </label>
+        <label>
+          Depth (Z):
+          <input type="number" id="depthZ" value="1" step="0.1" min="0.1">
+        </label>
+      </div>
+      <div class="property-section">
+        <h4>Actions</h4>
+        <button class="command-btn" id="resetBtn">Reset</button>
+        <button class="command-btn" id="centerBtn">Center View</button>
+      </div>
+      <div class="property-section">
+        <h4>Transform</h4>
+        <label>
+          Position X:
+          <input type="number" id="posX" value="0" step="0.1">
+        </label>
+        <label>
+          Position Y:
+          <input type="number" id="posY" value="0" step="0.1">
+        </label>
+        <label>
+          Position Z:
+          <input type="number" id="posZ" value="0" step="0.1">
+        </label>
+      </div>
+    </div>
+  </aside>
 </div>
+
+<!-- Bottom: Feedback Bar -->
+<footer id="feedback-bar">
+  <span id="status-message">Ready</span>
+</footer>
