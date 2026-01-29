@@ -10,8 +10,8 @@
   
   /* Background Colors - Khaki Green Palette */
   --color-bg-dark: #e0e6d7;              /* Dark khaki green for viewport */
-  --color-bg-medium: #a4cc59;            /* Light khaki green for panels */
-  --color-bg-light: #a0b080;             /* Medium khaki green for header */
+  --color-bg-medium: #b6ce8a;            /* Light khaki green for panels */
+  --color-bg-light: #7e8f5d;             /* Medium khaki green for header */
   --color-bg-input: #d4ddc4;             /* Very light khaki for inputs */
   
   /* Border Colors */
@@ -101,12 +101,12 @@ body {
 }
 
 .logo {
-  height: 34px;
+  height: 40px;
   width: auto;
 }
 
 .app-title {
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 600;
   color: var(--color-text-primary);
   white-space: nowrap;
